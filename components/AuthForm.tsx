@@ -15,7 +15,7 @@ export default function AuthForm({type}: AuthFormProps) {
             <FloatingInput placeholder='Enter your password' name='password' type='password' required />
             <Link href={'#'} className='self-end text-sm text-blue-400'>Forgot Password?</Link>
         </div>
-        <Button className='' widthFull>Log In</Button>
+        <Button className='' widthFull>Log In as {type}</Button>
     </form>
   )
 }
