@@ -1,8 +1,12 @@
-import AuthForm from '@/components/AuthForm';
-import { redirect } from 'next/navigation';
+"use client";
+import AuthForm from '@/components/AuthForm'
+import { redirect, useSearchParams } from 'next/navigation'
+import React from 'react'
 
-export default function Login({ searchParams }: { searchParams: { type?: string } }) {
-    const loginTypeParam = searchParams.type;
+export default function Login() {
+
+    const params = useSearchParams();
+    const loginTypeParam = params.get('type');
     const loginType = (loginTypeParam === 'Employee' || loginTypeParam === 'Admin') ? loginTypeParam : null;
 
     // If URL doesn't have type query param, redirect to ask-login-type page
@@ -16,5 +20,5 @@ export default function Login({ searchParams }: { searchParams: { type?: string 
             </div>
             <AuthForm type={loginType} />
         </>
-    );
+    )
 }
