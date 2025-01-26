@@ -1,17 +1,18 @@
 import React from 'react'
 import { ChevronRight, User, UserCog } from "lucide-react";
+import Link from 'next/link';
 
 export default function AskLoginType() {
     return (
         <>
             <div className="mb-10">
-                <h2 className="font-bold text-3xl">Welcome Back</h2>
-                <p className="text-secondary-700">Please choose a login type</p>
+                <h2 className="font-semibold dark:text-white text-3xl">Welcome Back</h2>
+                <p className="text-secondary-700 dark:text-secondary-100">Please choose a login type</p>
             </div>
 
             <div className="flex flex-col gap-2">
                 
-                <div className="p-5 rounded-lg bg-secondary-1000 text-white flex justify-between items-center">
+                <Link href={'/login?type=Employee'} className="p-5 rounded-lg bg-secondary-1000 dark:bg-slate-700 text-white flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <User size={35} />
                         <div>
@@ -20,9 +21,9 @@ export default function AskLoginType() {
                         </div>
                     </div>
                     <ChevronRight size={30} />
-                </div>
+                </Link>
 
-                <div className="p-5 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
+                <Link href={'/login?type=Admin'} className="p-5 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <UserCog size={35} />
                         <div>
@@ -30,8 +31,8 @@ export default function AskLoginType() {
                             <p>Access the admin portal</p>
                         </div>
                     </div>
-                    <ChevronRight size={30} />
-                </div>
+                    <ChevronRight className='peer' size={30} />
+                </Link>
 
             </div>
         </>

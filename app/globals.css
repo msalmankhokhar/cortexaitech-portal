@@ -17,7 +17,7 @@
     }
 
     .btn-primary {
-        @apply bg-secondary-900 text-white
+        @apply bg-secondary-900 text-white dark:btn-primary-white-text-secondary
     }
 
     .btn-primary-white-text-secondary {

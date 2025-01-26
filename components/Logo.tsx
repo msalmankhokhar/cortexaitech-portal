@@ -1,5 +1,7 @@
+'use client';
 import React from 'react'
 import Image from 'next/image'
+import { useTheme } from '@/Context/ThemeContext';
 
 interface LogoProps {
     className?: string;
@@ -7,6 +9,7 @@ interface LogoProps {
 }
 
 export default function Logo({className, center}: LogoProps) {
+    const { theme } = useTheme();
     return (
         <div className={`flex items-center gap-[8px] ${className} ${center ? 'justify-center' : ''}`}>
             <Image
@@ -17,7 +20,7 @@ export default function Logo({className, center}: LogoProps) {
             />
             <Image
                 alt='Cortex AI Tech logo text'
-                src={'/logos/text-only-logo-full-black.png'}
+                src={`/logos/text-only-logo-full-${theme === 'light' ? 'black' : 'white'}.png`}
                 width={135}
                 height={30}
                 className='mt-1.5'
