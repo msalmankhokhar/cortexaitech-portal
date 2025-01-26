@@ -13,9 +13,11 @@ export default function ThemeButton({ absolute = false, position= 'top-10 right-
         if (currentTheme === "dark") {
             html.setAttribute("data-mode", "light")
             setTheme("light")
+            localStorage.setItem('theme', 'light');
         }else{
-            html.setAttribute("data-mode", "dark")
-            setTheme("dark")
+            html.setAttribute("data-mode", "dark");
+            setTheme("dark");
+            localStorage.setItem('theme', 'dark');
         }
     }
 

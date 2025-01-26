@@ -6,7 +6,7 @@ interface ThemeContextType {
     setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
 }
 
-const defaultTheme = 'dark';
+export const defaultTheme = 'light';
 
 export const ThemeContext = createContext<ThemeContextType>({
     theme: defaultTheme,
@@ -19,10 +19,11 @@ export default function ThemeProvider({ children }: {children: React.ReactNode})
 
     useEffect(() => {
         const localStorageTheme = localStorage.getItem('theme');
+        const html = document.documentElement;
         if (localStorageTheme) {
             setTheme(localStorageTheme as 'light' | 'dark');
+            html.setAttribute("data-mode", localStorageTheme);
         } else {
-            const html = document.documentElement;
             html.setAttribute("data-mode", defaultTheme);
         }
     }, []);

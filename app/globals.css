@@ -4,7 +4,7 @@
 
 @layer utilities {
     .maxContainer {
-        @apply min-[1440px]:max-w-[1204px] mx-auto
+        @apply min-[1440px]:max-w-[1400px] mx-auto
     }
     
     .paddingContainer {
