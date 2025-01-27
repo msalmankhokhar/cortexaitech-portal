@@ -15,6 +15,7 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 try {
                     await connectDb(); // connected to database
+                    console.log(`Got email ${credentials?.email}`);
                     const user = await User.findOne({ email: credentials?.email });
                     if (user) {
                         // User exists, so now check if he gave correct password

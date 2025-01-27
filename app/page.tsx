@@ -1,8 +1,9 @@
+'use client';
 // import { redirect } from "next/navigation";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-export default async function Home() {
-  const session = await getSession();
+export default function Home() {
+  const { data: session, status } = useSession();
 
   // if(true) redirect('/ask-login-type');
 
@@ -10,7 +11,9 @@ export default async function Home() {
     <main className="maxContainer flex h-screen overflow-hidden">
       <div className="text-2xl p-10 text-center">
         {
-          session ? session.user.name : 'You are not logged in'
+          status === 'authenticated' ? (
+            `Logged in as ${session.user.name}`
+          ) : 'You are not logged in'
         }
       </div>
     </main>
