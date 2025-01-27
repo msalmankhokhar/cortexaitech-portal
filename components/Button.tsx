@@ -7,12 +7,13 @@ interface ButtonProps {
     widthFull?: boolean;
     type?: 'submit' | 'button';
     className?: string;
+    disabled?: boolean;
 }
 
-export default function Button({variant='btn-primary', icon, children, widthFull=false, type='button', className}: ButtonProps) {
+export default function Button({variant='btn-primary', icon, children, widthFull=false, type='button', className, disabled=false}: ButtonProps) {
     return (
         <>
-            <button type={type} className={`btn ${variant} ${icon && 'btn-icon'} ${widthFull && 'w-full'} ${className}`}>
+            <button disabled={disabled} type={type} className={`btn ${variant} ${icon && 'btn-icon'} ${widthFull && 'w-full'} ${className}`}>
                 {icon && icon}
                 <span>{children}</span>
             </button>
