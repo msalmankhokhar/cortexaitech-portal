@@ -10,12 +10,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
 
             <div className="relative flex flex-col sm:justify-center px-5 md:px-10 py-7 max-w-[560px] mx-auto w-full">
-                <div className="px-5 sm:px-0 flex items-center justify-between mb-10">
+                <div className="px-5 sm:px-0 flex items-center justify-between mb-5 sm:mb-10">
                     <Logo />
                     <ThemeButton />
                 </div>
                 <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-secondary-300 dark:border-slate-600">
-                    <div className="bg-secondary-1000 dark:bg-white px-10 py-5">
+                    <div className="bg-secondary-1000 dark:bg-white px-5 sm:px-10 py-5">
                         <h1 className="text-white dark:text-black font-semibold text-xl">Attendance Management System</h1>
                     </div>
                     <div className="px-5 sm:px-10 pb-10 pt-10">

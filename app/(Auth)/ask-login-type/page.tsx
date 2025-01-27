@@ -28,7 +28,7 @@ export default function AskLoginType() {
                         <UserCog size={35} />
                         <div>
                             <h3 className="font-semibold text-lg">Admin</h3>
-                            <p>Access the admin portal</p>
+                            <p>Login as admin</p>
                         </div>
                     </div>
                     <ChevronRight className='peer' size={30} />
