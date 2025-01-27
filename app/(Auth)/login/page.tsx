@@ -14,8 +14,8 @@ export default function Login() {
 
     return (
         <>
-            <div className="mb-10">
-                <h2 className="font-semibold text-3xl mb-2 dark:text-white">Sign In as {loginType}</h2>
+            <div className="mb-7 sm:mb-10">
+                <h2 className="font-semibold text-3xl text-nowrap dynamic-text mb-2 dark:text-white">Sign In as {loginType}</h2>
                 <p className="text-secondary-700 dark:text-secondary-100">Use your email and password to login</p>
             </div>
             <AuthForm type={loginType} />

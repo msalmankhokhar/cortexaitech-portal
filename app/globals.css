@@ -39,4 +39,11 @@
     .btn-icon {
         @apply flex items-center justify-center gap-2
     }
+
+    /* Text */
+    .dynamic-text {
+        white-space: nowrap;
+        font-size: clamp(1.7rem, 5vw, 2rem);
+        text-overflow: ellipsis;
+    }
 }

@@ -8,9 +8,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     return (
         <main className="maxContainer flex flex-wrap h-screen overflow-hidden bg-secondary-100 dark:bg-slate-800">
 
-
             <div className="relative flex flex-col sm:justify-center px-5 md:px-10 py-7 max-w-[560px] mx-auto w-full">
-                <div className="px-5 sm:px-0 flex items-center justify-between mb-5 sm:mb-10">
+                <div className="px-5 sm:px-0 flex items-center justify-between mb-5 sm:mb-7">
                     <Logo />
                     <ThemeButton />
                 </div>
@@ -18,7 +17,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                     <div className="bg-secondary-1000 dark:bg-white px-5 sm:px-10 py-5">
                         <h1 className="text-white dark:text-black font-semibold text-xl">Attendance Management System</h1>
                     </div>
-                    <div className="px-5 sm:px-10 pb-10 pt-10">
+                    <div className="px-5 sm:px-10 pb-5 sm:pb-8 pt-10">
                         <Suspense
                             fallback={(
                                 <Spinner />
@@ -28,6 +27,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                         </Suspense>
                     </div>
                 </div>
+                <p className="mt-3 text-center text-xs text-secondary-600 dark:text-secondary-300">Copyright &copy; Cortex AI Tech</p>
             </div>
 
             {/* AUTH PAGES SIDE IMAGE: UN-COMMENT TO USE */}
