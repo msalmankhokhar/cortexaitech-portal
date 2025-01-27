@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import Spinner from "@/components/Spinner";
 import ThemeButton from "@/components/ThemeButton";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -18,7 +19,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                         <h1 className="text-white dark:text-black font-semibold text-xl">Attendance Management System</h1>
                     </div>
                     <div className="px-5 sm:px-10 pb-10 pt-10">
-                        <Suspense fallback={<p>Loading...</p>}>
+                        <Suspense
+                            fallback={(
+                                <Spinner />
+                            )}
+                        >
                             {children}
                         </Suspense>
                     </div>
