@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter as Font } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/Context/ThemeContext";
+import AuthProvider from "@/Context/AuthContext";
 
 const font = Font({
   subsets: ['latin'],
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${font.className} antialiased`}>
 
         <ThemeProvider>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
 
       </body>

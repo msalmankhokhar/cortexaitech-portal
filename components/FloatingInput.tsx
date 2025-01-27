@@ -24,6 +24,7 @@ export default function FloatingInput({ placeholder, name, type, required = fals
             >
                 {placeholder}
             </label>
+
         </div>
     );
 }
