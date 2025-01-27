@@ -43,7 +43,7 @@ export default function AuthForm({ type }: AuthFormProps) {
         setError(result?.error?.toString() || 'Unable to parse error');
       }
     } catch {
-      setError('Sorry, an unexpected error occurred!');
+      setError('Sorry bhai, error a gaya!');
     } finally {
       setLoading(false);
     }
@@ -52,7 +52,7 @@ export default function AuthForm({ type }: AuthFormProps) {
   return (
     <form onSubmit={handleSubmit} className='flex flex-col'>
       <div className="flex flex-col gap-3 mb-7">
-        <p className='text-sm font-medium text-red-600'>{error}</p>
+        <p className='text-sm mb-1 font-normal text-red-600 dark:text-red-500'>{error}</p>
         <FloatingInput placeholder='Enter your resistered email' name='email' type='email' required />
         <FloatingInput placeholder='Enter your password' name='password' type='password' required />
         <Link href={'/reset-password'} className='self-end text-sm text-blue-600 dark:text-blue-400'>Forgot Password?</Link>

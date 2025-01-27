@@ -23,11 +23,11 @@ export const authOptions: NextAuthOptions = {
                             return user
                         } else {
                             // Password is wrong, handle what to do here
-                            throw new Error('Password is Wrong. Click forgot password to reset or try again');
+                            throw new Error('Mama tera password wrong hai');
                         }
                     } else {
                         // User does not exists
-                        throw new Error('Email is not registered');
+                        throw new Error('Apka email registered nhi hai');
                     }
                 } catch (error: unknown) {
                     if (error instanceof Error) {

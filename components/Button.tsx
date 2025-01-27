@@ -8,12 +8,13 @@ interface ButtonProps {
     type?: 'submit' | 'button';
     className?: string;
     disabled?: boolean;
+    onClick?: () => void;
 }
 
-export default function Button({variant='btn-primary', icon, children, widthFull=false, type='button', className, disabled=false}: ButtonProps) {
+export default function Button({variant='btn-primary', icon, children, widthFull=false, type='button', className, disabled=false, onClick}: ButtonProps) {
     return (
         <>
-            <button disabled={disabled} type={type} className={`btn ${variant} ${icon && 'btn-icon'} ${widthFull && 'w-full'} ${className}`}>
+            <button onClick={onClick} disabled={disabled} type={type} className={`btn ${variant} ${icon && 'btn-icon'} ${widthFull && 'w-full'} ${className}`}>
                 {icon && icon}
                 <span>{children}</span>
             </button>
