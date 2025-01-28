@@ -40,38 +40,49 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: '/login'
+        signIn: '/login?type=Employee',
+        
     },
     session: {
-        strategy: 'jwt'
+        strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
+    jwt: {
+        maxAge: 30 * 24 * 60 * 60, // 30 days
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async session({ session, token }) {
             if (token) {
-                session.user._id = token?._id?.toString();
-                session.user.name = token.name;
-                session.user.email = token.email;
-                session.user.password = token.password;
-                session.user.avatar = token.avatar;
-                session.user.dateJoined = token.dateJoined;
-                session.user.admin = token.admin;
-                session.user.role = token.role;
+                session.user = {
+                    ...session.user,
+                    _id: token._id?.toString(),
+                    name: token.name,
+                    email: token.email,
+                    password: token.password,
+                    avatar: token.avatar,
+                    dateJoined: token.dateJoined,
+                    admin: token.admin,
+                    role: token.role
+                };
             }
-            return session
+            return session;
         },
         async jwt({ token, user }) {
             if (user) {
-                token._id = user?._id?.toString();
-                token.name = user.name;
-                token.email = user.email;
-                token.password = user.password;
-                token.avatar = user.avatar;
-                token.dateJoined = user.dateJoined;
-                token.admin = user.admin;
-                token.role = user.role;
+                token = {
+                    ...token,
+                    _id: user._id?.toString(),
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    avatar: user.avatar,
+                    dateJoined: user.dateJoined,
+                    admin: user.admin,
+                    role: user.role
+                };
             }
-            return token
+            return token;
         }
     }
 }

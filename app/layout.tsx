@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter as Font } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/Context/ThemeContext";
-import AuthProvider from "@/Context/AuthContext";
 import PageLoadingProvider from "@/Context/LoadingContext";
+import AuthProvider from "@/Context/AuthContext";
 
 const font = Font({
   subsets: ['latin'],

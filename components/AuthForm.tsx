@@ -55,11 +55,6 @@ export default function AuthForm({ type }: AuthFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col'>
-      {/* {
-        pageLoading && (
-          <PageSpinner />
-        )
-      } */}
       <div className="flex flex-col gap-3 mb-7">
         <p className='text-sm mb-1 font-normal text-red-600 dark:text-red-500'>{error}</p>
         <FloatingInput placeholder='Enter your resistered email' name='email' type='email' required />

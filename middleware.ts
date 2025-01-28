@@ -1,23 +1,26 @@
-export { default } from "next-auth/middleware"
-import type { NextRequest } from 'next/server'
+import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt"
 
-export async function middleware(request: NextRequest) {
-    const token = await getToken({req: request});
-    if (token) {
-        // User is logged in, So when he goes to '/login' then we have to redirect him to '/'
-        if (
-            request.nextUrl.pathname.startsWith('/login') ||
-            request.nextUrl.pathname.startsWith('/ask-login-type')
-        ) {
-            return NextResponse.redirect(new URL('/', request.url));
-        }
+export default withAuth(
+  function middleware(req) {
+    // Handle logged-in users trying to access login pages
+    if (
+      req.nextUrl.pathname.startsWith('/login') ||
+      req.nextUrl.pathname.startsWith('/ask-login-type')
+    ) {
+      return NextResponse.redirect(new URL('/', req.url));
     }
-}
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token
+    },
+  }
+);
 
 export const config = {
-    matcher: [
-        '/',
-    ],
+  matcher: [
+    '/',
+    // Add other protected routes here
+  ]
 }
