@@ -4,6 +4,7 @@ import Button from './Button'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { usePageLoading } from '@/Context/LoadingContext';
 
 type loginType = 'Employee' | 'Admin';
 
@@ -15,15 +16,17 @@ export default function AuthForm({ type }: AuthFormProps) {
 
   const otherType = type === 'Employee' ? 'Admin' : 'Employee';
 
-  // States
+  // States and router
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const {setPageLoading} = usePageLoading();
   const router = useRouter();
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    setPageLoading(true)
     setLoading(true);
+    setError('');
     const formData = new FormData(event.currentTarget as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
     const {email, password} = data;
@@ -46,11 +49,17 @@ export default function AuthForm({ type }: AuthFormProps) {
       setError('Sorry bhai, error a gaya!');
     } finally {
       setLoading(false);
+      setPageLoading(false);
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col'>
+      {/* {
+        pageLoading && (
+          <PageSpinner />
+        )
+      } */}
       <div className="flex flex-col gap-3 mb-7">
         <p className='text-sm mb-1 font-normal text-red-600 dark:text-red-500'>{error}</p>
         <FloatingInput placeholder='Enter your resistered email' name='email' type='email' required />

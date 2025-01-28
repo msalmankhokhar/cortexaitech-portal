@@ -3,6 +3,7 @@ import { Inter as Font } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/Context/ThemeContext";
 import AuthProvider from "@/Context/AuthContext";
+import PageLoadingProvider from "@/Context/LoadingContext";
 
 const font = Font({
   subsets: ['latin'],
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
         <ThemeProvider>
           <AuthProvider>
-            {children}
+            <PageLoadingProvider>
+              {children}
+            </PageLoadingProvider>
           </AuthProvider>
         </ThemeProvider>
 

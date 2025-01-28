@@ -6,7 +6,7 @@ import React from 'react'
 export default function Login() {
 
     const params = useSearchParams();
-    const loginTypeParam = params.get('type');
+    const loginTypeParam = params?.get('type');
     const loginType = (loginTypeParam === 'Employee' || loginTypeParam === 'Admin') ? loginTypeParam : null;
 
     // If URL doesn't have type query param, redirect to ask-login-type page

@@ -12,6 +12,10 @@ export default {
       position: 'top, right, bottom, left', // Add support for position transitions
     },
     extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite', // 2 second duration
+        'spin-fast': 'spin 600ms linear infinite', // half second duration
+      },
       colors: {
         primary: {
           100: "#FFF5D4", // Lightest shade for subtle highlights

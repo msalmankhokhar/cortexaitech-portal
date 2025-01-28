@@ -10,9 +10,9 @@ export default function AskLoginType() {
                 <p className="text-secondary-700 dark:text-secondary-100">Please choose a login type</p>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
                 
-                <Link href={'/login?type=Employee'} className="p-5 rounded-lg bg-secondary-1000 dark:bg-slate-700 text-white flex justify-between items-center">
+                <Link href={'/login?type=Employee'} className="px-5 py-4 rounded-lg bg-secondary-1000 dark:bg-slate-700 text-white flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <User size={35} />
                         <div>
@@ -23,7 +23,7 @@ export default function AskLoginType() {
                     <ChevronRight size={30} />
                 </Link>
 
-                <Link href={'/login?type=Admin'} className="p-5 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
+                <Link href={'/login?type=Admin'} className="px-5 py-4 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <UserCog size={35} />
                         <div>
