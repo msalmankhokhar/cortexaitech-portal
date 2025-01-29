@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { usePageLoading } from '@/Context/LoadingContext';
 
-type loginType = 'Employee' | 'Admin';
+export type loginType = 'Employee' | 'Admin';
 
 interface AuthFormProps {
   type: loginType;
@@ -35,6 +35,7 @@ export default function AuthForm({ type }: AuthFormProps) {
       const result = await signIn('credentials', {
         email,
         password,
+        loginType: type,
         redirect: false,
       });
 
@@ -46,7 +47,7 @@ export default function AuthForm({ type }: AuthFormProps) {
         setError(result?.error?.toString() || 'Unable to parse error');
       }
     } catch {
-      setError('Sorry bhai, error a gaya!');
+      setError('An unexpected error occured. Report the issue to the dev team!');
     } finally {
       setLoading(false);
       setPageLoading(false);

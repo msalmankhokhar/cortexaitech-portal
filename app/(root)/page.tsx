@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   return (
-    <main className="maxContainer flex h-screen overflow-hidden">
+    <main className="maxContainer flex min-h-screen overflow-hidden">
       <div className="text-2xl p-10 text-center">
         {session?.user?.name && (
           <>

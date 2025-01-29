@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectDb from "@/lib/db";
 import User from "@/models/User";
+import { loginType as loginTypeType } from "@/components/AuthForm";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -9,7 +10,8 @@ export const authOptions: NextAuthOptions = {
             name: 'Credentials',
             credentials: {
                 email: { label: "Email", type: "email", placeholder: "example@example.com" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password" },
+                loginType: { label: "Login Type", type: "text" }
             },
 
             async authorize(credentials) {
@@ -23,11 +25,11 @@ export const authOptions: NextAuthOptions = {
                             return user
                         } else {
                             // Password is wrong, handle what to do here
-                            throw new Error('Mama tera password wrong hai');
+                            throw new Error('Passowrd is wrong. Click on forgot password to reset it or try again');
                         }
                     } else {
                         // User does not exists
-                        throw new Error('Apka email registered nhi hai');
+                        throw new Error('Email not registered.');
                     }
                 } catch (error: unknown) {
                     if (error instanceof Error) {
@@ -40,7 +42,8 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: '/login?type=Employee',
+        // signIn: '/login?type=Employee',
+        signIn: '/ask-login-type',
         
     },
     session: {

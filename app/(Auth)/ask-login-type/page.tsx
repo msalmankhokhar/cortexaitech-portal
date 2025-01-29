@@ -12,7 +12,7 @@ export default function AskLoginType() {
 
             <div className="flex flex-col gap-3">
                 
-                <Link href={'/login?type=Employee'} className="px-5 py-4 rounded-lg bg-secondary-1000 dark:bg-slate-700 text-white flex justify-between items-center">
+                <Link href={`/login?type=Employee&callbackUrl=${process.env.NEXTAUTH_URL}`} className="px-5 py-4 rounded-lg bg-secondary-1000 dark:bg-slate-700 text-white flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <User size={35} />
                         <div>
@@ -23,7 +23,7 @@ export default function AskLoginType() {
                     <ChevronRight size={30} />
                 </Link>
 
-                <Link href={'/login?type=Admin'} className="px-5 py-4 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
+                <Link href={`/login?type=Admin&callbackUrl=${process.env.NEXTAUTH_URL}`} className="px-5 py-4 rounded-lg border border-secondary-300 bg-secondary-100 flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <UserCog size={35} />
                         <div>
