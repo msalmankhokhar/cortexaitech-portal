@@ -14,10 +14,14 @@ const ALLOWED_FILE_TYPES = [
     'image/webp'
 ];
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(
+    request: NextRequest,
+    context: { params: { id: string } }
+) {
     try {
-        const formData = await req.formData();
+        const formData = await request.formData();
         const file = formData.get('avatar') as File;
+        const { id } = context.params;
         
         if (!file) {
             return NextResponse.json(
@@ -49,7 +53,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
         // Get file extension
         const fileExt = file.type.split('/')[1];
-        const fileName = `${params.id}.${fileExt}`;
+        const fileName = `${id}.${fileExt}`;
         const filePath = path.join(avatarsDir, fileName);
 
         // Convert File to Buffer and save
@@ -60,7 +64,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         // Update user's avatar in database
         await connectDb();
         const avatarUrl = `/avatars/${fileName}`;
-        await User.findByIdAndUpdate(params.id, { avatar: avatarUrl });
+        await User.findByIdAndUpdate(id, { avatar: avatarUrl });
 
         return NextResponse.json({
             success: true,
