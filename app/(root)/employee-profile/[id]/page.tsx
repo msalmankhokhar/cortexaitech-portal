@@ -36,7 +36,7 @@ export default function EmployeeProfile() {
           <button onClick={() => router.back()}>
             <ChevronLeft size={18} />
           </button>
-          <p className="text-xl font-bold">{(session?.user?.adminAccess && employee._id !== session?.user._id) ? 'Employee Detail' : `Welcome, ${employee?.firstName}`}</p>
+          <p className="text-xl font-bold">{(session?.user?.adminAccess && employee!._id !== session?.user._id) ? 'Employee Detail' : `Welcome, ${employee?.firstName}`}</p>
         </div>
         <section className="flex gap-7">
           <aside className="min-w-[260px] bg-white dark:bg-slate-800 rounded-lg px-5 self-start">
