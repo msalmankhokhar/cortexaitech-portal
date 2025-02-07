@@ -22,7 +22,9 @@ export const config = {
   matcher: [
     '/manage-employees/:path*',
     '/employee-path/:path*',
+    // '/login/:path*',
+    // '/ask-login-type/:path*',
     // Exclude these paths from middleware
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|logos).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|logos|login|ask-login-type).*)'
   ]
 }
