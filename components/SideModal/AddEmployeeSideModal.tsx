@@ -105,6 +105,7 @@ export default function AddEmployeeSideModal() {
                             options={offices}
                             defaultValue="Select Office"
                             name='office'
+                            required
                         />
                     </div>
 
