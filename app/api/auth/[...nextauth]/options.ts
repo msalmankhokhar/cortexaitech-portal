@@ -1,8 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectDb from "@/lib/db";
-import User from "@/models/User";
-import { loginType as loginTypeType } from "@/components/AuthForm";
+import { User } from "@/models";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -18,7 +17,7 @@ export const authOptions: NextAuthOptions = {
                 try {
                     await connectDb(); // connected to database
                     console.log(`Got email ${credentials?.email}`);
-                    const user = await User.findOne({ email: credentials?.email });
+                    const user = await User.findOne({ email: credentials?.email }).populate('role').populate('department').populate('office').populate('address');
                     if (user) {
                         // User exists, so now check if he gave correct password
                         if (user.password === credentials?.password) {
@@ -37,7 +36,6 @@ export const authOptions: NextAuthOptions = {
                     }
                     throw new Error('An unexpected error occurred');
                 }
-
             }
         })
     ],
@@ -60,13 +58,21 @@ export const authOptions: NextAuthOptions = {
                 session.user = {
                     ...session.user,
                     _id: token._id?.toString(),
-                    name: token.name,
+                    firstName: token.firstName,
+                    lastName: token.lastName,
                     email: token.email,
+                    phone: token.phone,
+                    gender: token.gender,
                     password: token.password,
                     avatar: token.avatar,
                     dateJoined: token.dateJoined,
-                    admin: token.admin,
-                    role: token.role
+                    adminAccess: token.adminAccess,
+                    status: token.status,
+                    role: token.role,
+                    department: token.department,
+                    office: token.office,
+                    timezone: token.timezone,
+                    address: token.address,
                 };
             }
             return session;
@@ -76,13 +82,21 @@ export const authOptions: NextAuthOptions = {
                 token = {
                     ...token,
                     _id: user._id?.toString(),
-                    name: user.name,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     email: user.email,
+                    phone: user.phone,
+                    gender: user.gender,
                     password: user.password,
                     avatar: user.avatar,
                     dateJoined: user.dateJoined,
-                    admin: user.admin,
-                    role: user.role
+                    adminAccess: user.adminAccess,
+                    status: user.status,
+                    role: user.role,
+                    department: user.department,
+                    office: user.office,
+                    timezone: user.timezone,
+                    address: user.address,
                 };
             }
             return token;

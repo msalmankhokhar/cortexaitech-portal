@@ -20,7 +20,9 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    '/',
-    // Add other protected routes here
+    '/manage-employees/:path*',
+    '/employee-path/:path*',
+    // Exclude these paths from middleware
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|logos).*)'
   ]
 }

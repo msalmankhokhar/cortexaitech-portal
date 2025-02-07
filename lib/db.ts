@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import '@/models';
 
 type isConnected = null | number;
 interface connectionType {

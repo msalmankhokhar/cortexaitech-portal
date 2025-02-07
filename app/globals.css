@@ -13,11 +13,15 @@
 
     /* Buttons */
     .btn {
-        @apply px-5 py-3 text-sm font-semibold rounded-lg
+        @apply px-5 py-3 text-sm font-semibold rounded-lg relative
     }
 
     .btn-primary {
         @apply bg-secondary-900 text-white dark:btn-primary-white-text-secondary
+    }
+
+    .btn-primary-colored {
+        @apply bg-primary text-white dark:btn-primary-white
     }
 
     .btn-primary-white-text-secondary {
@@ -29,15 +33,23 @@
     }
 
     .btn-hollow {
-        @apply text-secondary-1000 border border-secondary-300
+        @apply text-secondary-1000 dark:text-white border border-secondary-300 dark:border-secondary-800
     }
 
     .btn-hollow-colored {
         @apply text-primary-400 border border-primary-200
     }
 
-    .btn-icon {
+    .btn-icon, .btn-icon-right, .btn-icon-left {
         @apply flex items-center justify-center gap-2
+    }
+
+    .btn-icon-right svg {
+        @apply absolute right-5
+    }
+
+    .btn-icon-left svg {
+        @apply absolute left-5
     }
 
     /* Text */

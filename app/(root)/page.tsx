@@ -2,8 +2,9 @@
 import Button from "@/components/Button";
 import { PageSpinner } from "@/components/Spinner";
 import { usePageLoading } from "@/Context/LoadingContext";
+import { Session } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -13,9 +14,12 @@ export default function Home() {
   // Wait for session loading
   if (status === 'loading') {
     return <PageSpinner />;
+  } else if (status === 'authenticated') {
+    const redirectUrl = session?.user.adminAccess ? '/manage-employees' : `/employee-profile/${session?.user._id}`;
+    redirect(redirectUrl);
   }
 
-  // Only redirect if we're certain there's no session
+  // Redirect to login page if not logged in
   if (status === 'unauthenticated') {
     router.replace('/ask-login-type');
     return null;
@@ -29,17 +33,11 @@ export default function Home() {
   }
 
   return (
-    <main className="maxContainer flex min-h-screen overflow-hidden">
-      <div className="text-2xl p-10 text-center">
-        {session?.user?.name && (
-          <>
-            {`Logged in as ${session.user.name}`}
-            <div className="my-5">
-              <Button onClick={handleLogout}>Logout</Button>
-            </div>
-          </>
-        )}
-      </div>
-    </main>
+    <>
+      <main className="px-7 pb-5 bg-secondary-100 dark:bg-slate-900 flex flex-col relative">
+        <div className="dark:text-white pt-5">Hello, Mr. {(session! as Session)?.user!.firstName}</div>
+        <Button onClick={handleLogout}>Log out</Button>
+      </main>
+    </>
   );
 }

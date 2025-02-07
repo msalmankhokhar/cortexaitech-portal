@@ -3,7 +3,13 @@ import React from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from '@/Context/ThemeContext';
 
-export default function ThemeButton({ absolute = false, position= 'top-10 right-10' }: {absolute?: boolean, position?: string}) {
+interface ThemeButtonProps {
+    absolute?: boolean,
+    position?: string,
+    size?: number
+}
+
+export default function ThemeButton({ absolute = false, position= 'top-10 right-10', size=24 }: ThemeButtonProps) {
 
     const { theme, setTheme } = useTheme();
 
@@ -24,7 +30,7 @@ export default function ThemeButton({ absolute = false, position= 'top-10 right-
     return (
         <button type='button' className={`flex ${absolute && 'absolute z-1'} ${position}`} id='themeBtn' onClick={toggleTheme}>
             {
-                theme === 'light' ? <Moon size={24} /> : <Sun size={24} color='white' />
+                theme === 'light' ? <Moon size={size} /> : <Sun size={size} color='white' />
             }
         </button>
     )
