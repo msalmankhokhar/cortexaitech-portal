@@ -4,50 +4,15 @@ import Button from "@/components/Button";
 import { PageSpinner } from "@/components/Spinner";
 import { getAvatarUrl } from "@/lib/utils";
 import { ChevronDown, ChevronLeft, Edit, Globe, Mail, Phone } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import EmployeeProfileLoading from "./loading";
-import { getEmployeeById } from "@/lib/actions/user.actions";
+import useEmployee from "@/hooks/useEmployee";
 
 export default function EmployeeProfile() {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const params = useParams();
   const employeeId = params.id as string;
-  const [loading, setLoading] = useState(true);
-  const [employee, setEmployee] = useState<EmployeeDocument | null>(null);
-
-  useEffect(() => {
-    async function fetchEmployee() {
-      setLoading(true);
-      try {
-        // Check if user is admin
-        if (session?.user?.adminAccess === false && session.user._id === employeeId) {
-          setEmployee(session.user);
-          console.log(session.user);
-        } else {
-          // If admin, fetch employee data from API
-          const response = await getEmployeeById(employeeId);
-          if (response.success) {
-            setEmployee(response.employee);
-          } else {
-            router.push('/404');
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        router.push('/404');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // Only run fetchEmployee if session is authenticated
-    if (status === 'authenticated') {
-      fetchEmployee();
-    }
-  }, [employeeId, router, session, status]);
+  const { employee, loading, status, session } = useEmployee(employeeId);
 
   // Wait for session loading
   if (status === 'loading') {
@@ -71,7 +36,7 @@ export default function EmployeeProfile() {
           <button onClick={() => router.back()}>
             <ChevronLeft size={18} />
           </button>
-          <p className="text-xl font-bold">{(employee?.adminAccess && employee._id !== session?.user._id) ? 'Employee Detail' : `Welcome, ${employee?.firstName}`}</p>
+          <p className="text-xl font-bold">{(session?.user?.adminAccess && employee._id !== session?.user._id) ? 'Employee Detail' : `Welcome, ${employee?.firstName}`}</p>
         </div>
         <section className="flex gap-7">
           <aside className="min-w-[260px] bg-white dark:bg-slate-800 rounded-lg px-5 self-start">
