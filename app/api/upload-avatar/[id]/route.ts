@@ -14,20 +14,14 @@ const ALLOWED_FILE_TYPES = [
     'image/webp'
 ];
 
-type RouteParams = {
-    params: {
-        id: string
-    }
-}
-
 export async function POST(
     request: NextRequest,
-    { params }: RouteParams
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const formData = await request.formData();
         const file = formData.get('avatar') as File;
-        const { id } = params;
+        const id = (await params).id;
         
         if (!file) {
             return NextResponse.json(
