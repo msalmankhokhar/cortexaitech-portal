@@ -25,6 +25,7 @@ export const config = {
     // '/login/:path*',
     // '/ask-login-type/:path*',
     // Exclude these paths from middleware
+    // '/((?!api|_next/static|_next/image|img|favicon.ico|sitemap.xml|robots.txt|logos|login|ask-login-type).*)'
     '/((?!api|_next/static|_next/image|img|favicon.ico|sitemap.xml|robots.txt|logos|login|ask-login-type).*)'
   ]
 }

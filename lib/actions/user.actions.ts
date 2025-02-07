@@ -9,6 +9,7 @@ export interface EmployeeResponse {
     success: boolean;
     employee: EmployeeDocument | null;
     message: string;
+    error: string | null;
 }
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -34,7 +35,7 @@ export async function addEmployee(employeeData: signupFormData, adminEmail: stri
                 subject: 'New Employee Account Created',
                 html: newEmployeeAdminNotificationEmailTemplate(json.user)
             });
-            
+
             // Sending email notification to new employee
             await resend.emails.send({
                 from: 'Cortex-AI-Tech HR Dashboard <hr@cortexaitech-portal.salmanmalik.pro>',
@@ -84,19 +85,33 @@ export async function getEmployees(): Promise<{ success: boolean, employees: nev
 
 export async function getEmployeeById(id: string): Promise<EmployeeResponse> {
     console.log('Getting employee by id', id);
-    const employee = await User.findById(id).populate('department').populate('role').populate('office').populate('address').lean();
-
-    if (!employee) {
-        return {
+    try {
+        connectDb();
+        const employee = await User.findById(id).populate('department').populate('role').populate('office').populate('address').lean();
+        if (!employee) {
+            const response = {
+                success: false,
+                employee: null,
+                message: 'Employee not found',
+                error: null,
+            }
+            return response;
+        }
+        const response = {
+            success: true,
+            employee: parseStringify(employee),
+            message: 'Employee fetched successfully',
+            error: null,
+        }
+        return response;
+    } catch(error: unknown) {
+        console.log(error);
+        const response = {
             success: false,
             employee: null,
-            message: 'Employee not found',
+            message: 'Error fetching employee',
+            error: 'Error fetching employee',
         }
-    }
-
-    return {
-        success: true,
-        employee: parseStringify(employee),
-        message: 'Employee fetched successfully',
+        return response;
     }
 }

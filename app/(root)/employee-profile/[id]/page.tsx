@@ -27,7 +27,7 @@ export default function EmployeeProfile() {
           setEmployee(session.user);
           console.log(session.user);
         } else {
-          // If not admin, fetch employee data from API
+          // If admin, fetch employee data from API
           const response = await getEmployeeById(employeeId);
           if (response.success) {
             setEmployee(response.employee);
