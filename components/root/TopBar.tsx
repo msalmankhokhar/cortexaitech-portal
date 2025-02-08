@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react'
 import ThemeButton from '../ThemeButton'
-import { AlignLeft, Bell, ChevronDown, EllipsisVertical, LogOut, Menu, MessageSquareText, PanelLeft, PanelLeftClose, Search, UserRound } from 'lucide-react'
+import { Bell, ChevronDown, LogOut, MessageSquareText, PanelLeftClose, Search, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useSideBar } from '@/Context/SideBarContext'
 import { useSession, signOut } from 'next-auth/react';

@@ -15,29 +15,29 @@ export default function EmployeeTable() {
     const [error, setError] = useState(errorPlaceholder);
     const { setPageLoading } = usePageLoading();
 
-    async function fetchEmployees() {
-        setPageLoading(true);
-        const employeesResponse = await getEmployees();
-        console.log(employeesResponse);
-        if (employeesResponse.success) {
-            setEmployees(employeesResponse.employees);
-            if (employeesResponse.employees.length === 0) {
-                setError(employeesResponse.message);
-                console.log(employeesResponse);
-                setNoEmployees(true);
-            } else {
-                setNoEmployees(false);
-            }
-        } else {
-            setError(employeesResponse.message);
-            setNoEmployees(true);
-        }
-        setPageLoading(false);
-    }
-
+    
     useEffect(() => {
+        async function fetchEmployees() {
+            setPageLoading(true);
+            const employeesResponse = await getEmployees();
+            console.log(employeesResponse);
+            if (employeesResponse.success) {
+                setEmployees(employeesResponse.employees);
+                if (employeesResponse.employees.length === 0) {
+                    setError(employeesResponse.message);
+                    console.log(employeesResponse);
+                    setNoEmployees(true);
+                } else {
+                    setNoEmployees(false);
+                }
+            } else {
+                setError(employeesResponse.message);
+                setNoEmployees(true);
+            }
+            setPageLoading(false);
+        }
         fetchEmployees();
-    }, [])
+    }, [setPageLoading])
 
     return (
         <Table headItems={headItems}>
