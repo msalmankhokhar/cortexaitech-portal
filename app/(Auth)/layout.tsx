@@ -24,7 +24,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-secondary-300 dark:border-slate-600">
                     <div className="bg-secondary-1000 dark:bg-white px-5 sm:px-10 py-5">
-                        <h1 className="text-white dark:text-black font-semibold text-xl">Attendance Management System</h1>
+                        <h1 className="text-white dark:text-black font-semibold text-xl">HR Management Dashboard</h1>
                     </div>
                     <div className="px-5 sm:px-10 pb-5 sm:pb-8 pt-10">
                         <Suspense

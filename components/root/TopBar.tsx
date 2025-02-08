@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react'
 import ThemeButton from '../ThemeButton'
-import { Bell, ChevronDown, LogOut, MessageSquareText, PanelLeft, Search, UserRound } from 'lucide-react'
+import { AlignLeft, Bell, ChevronDown, EllipsisVertical, LogOut, Menu, MessageSquareText, PanelLeft, PanelLeftClose, Search, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useSideBar } from '@/Context/SideBarContext'
 import { useSession, signOut } from 'next-auth/react';
@@ -28,7 +28,7 @@ export default function TopBar() {
         <div className='py-5 px-5 flex justify-between border-b dark:border-slate-700 bg-white dark:bg-slate-800 z-50'>
             <div className='flex gap-2 items-center'>
                 <button className='mr-5' onClick={() => setSideBarOpen(!sideBarOpen)}>
-                    <PanelLeft className='dark:text-white' strokeWidth={1.5} size={18} />
+                    <PanelLeftClose className='dark:text-white' strokeWidth={1.5} size={18} />
                 </button>
                 <div className='px-4 bg-secondary-100 dark:bg-slate-700 flex items-center rounded-md gap-2 border dark:border-secondary-800'>
                     <Search size={16} className='text-secondary-800 dark:text-secondary-200' />
@@ -51,11 +51,12 @@ export default function TopBar() {
                 </div>
 
                 {/* Top bar logged in User Avatar */}
-                <div className='flex items-center gap-1 relative'>
+                <div className='flex items-center gap-1 relative'
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
                     <Avatar size={30} src={session?.user.avatar ? session.user.avatar : getAvatarUrl(`${session?.user.firstName} ${session?.user.lastName}`)} />
                     <button 
                         type='button' 
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         className="focus:outline-none"
                     >
                         <ChevronDown size={18} className='dark:text-white' />

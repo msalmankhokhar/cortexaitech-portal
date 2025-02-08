@@ -19,7 +19,8 @@ export default function Spinner( { size = '24', stroke = '2' }: spinnerProps ) {
 
 export function PageSpinner({ size = '40', stroke = '3' }: spinnerProps) {
     return (
-        <div className="bg-gray-100/80 backdrop-blur-sm fixed z-[200] top-0 left-0 h-screen w-screen flex items-center justify-center">
+        // changed bg-gray-100/80 to bg-black/50 by SALMAN
+        <div className="bg-black/50 backdrop-blur-md fixed z-[200] top-0 left-0 h-screen w-screen flex items-center justify-center">
             <Spinner size={size} stroke={stroke} />
         </div>
     )

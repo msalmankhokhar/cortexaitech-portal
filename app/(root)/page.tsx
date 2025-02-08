@@ -19,16 +19,17 @@ export default function Home() {
     redirect(redirectUrl);
   }
 
-  // Redirect to login page if not logged in
-  if (status === 'unauthenticated') {
-    router.replace('/ask-login-type');
-    return null;
-  }
+  // // Redirect to login page if not logged in
+  // if (status === 'unauthenticated') {
+  //   router.replace('/ask-login-type');
+  //   return null;
+  // }
 
   async function handleLogout() {
     setPageLoading(true);
     await signOut();
-    router.replace('/ask-login-type');
+    // router.replace('/ask-login-type');
+    router.refresh();
     setPageLoading(false);
   }
 

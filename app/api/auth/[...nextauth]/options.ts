@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
     ],
     pages: {
         // signIn: '/login?type=Employee',
-        signIn: '/ask-login-type',
+        signIn: '/login',
         
     },
     session: {

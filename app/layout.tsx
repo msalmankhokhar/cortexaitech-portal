@@ -4,6 +4,7 @@ import "./globals.css";
 import ThemeProvider from "@/Context/ThemeContext";
 import PageLoadingProvider from "@/Context/LoadingContext";
 import AuthProvider from "@/Context/AuthContext";
+import NextTopLoader from "nextjs-toploader";
 
 const font = Font({
   subsets: ['latin'],
@@ -21,6 +22,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" data-mode={'light'}>
       <body className={`${font.className} antialiased`}>
 
+        <NextTopLoader 
+          showSpinner={false}
+          color="#FDC01A"
+        />
         <PageLoadingProvider>
           <ThemeProvider>
             <AuthProvider>
