@@ -60,3 +60,11 @@ declare interface EmployeeDocument {
   };
   phone?: string;
 }
+
+declare interface AddressDocument {
+  _id: string;
+  primary: string;
+  country: string;
+  state: string;
+  city: string;
+}

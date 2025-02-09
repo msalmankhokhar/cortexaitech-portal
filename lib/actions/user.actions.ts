@@ -1,13 +1,20 @@
 "use server";
-import { User } from "@/models";
+import { Address, User } from "@/models";
 import connectDb from "../db";
 import { parseStringify } from "../utils";
 import { Resend } from "resend";
 import { newEmployeeEmailTemplate, newEmployeeAdminNotificationEmailTemplate } from "@/Constants";
+import { UpdateQuery } from "mongoose";
 
 export interface EmployeeResponse {
     success: boolean;
     employee: EmployeeDocument | null;
+    message: string;
+    error: string | null;
+}
+export interface AddressResponse {
+    success: boolean;
+    address: AddressDocument | null;
     message: string;
     error: string | null;
 }
@@ -113,5 +120,92 @@ export async function getEmployeeById(id: string): Promise<EmployeeResponse> {
             error: 'Error fetching employee',
         }
         return response;
+    }
+}
+
+export async function updateEmployeePersonalInfo(id: string, data: UpdateQuery<EmployeeDocument>): Promise<EmployeeResponse> {
+    console.log('Updating employee', id, data);
+    try {
+        await connectDb();
+        const employee = await User.findByIdAndUpdate(id, data, { new: true }).populate('department').populate('role').populate('office').populate('address').lean();
+        if (!employee) {
+            return {
+                success: false,
+                employee: null,
+                message: 'Employee not found',
+                error: null,
+            }
+        }
+        return {
+            success: true,
+            employee: parseStringify(employee),
+            message: 'Employee updated successfully',
+            error: null,
+        }
+    } catch (error: unknown) {
+        console.log(error);
+        return {
+            success: false,
+            employee: null,
+            message: 'Error updating employee',
+            error: 'Error updating employee',
+        }
+        
+    }
+}
+
+export async function updateEmployeeAddress(id: string, data: UpdateQuery<AddressDocument>): Promise<AddressResponse> {
+    console.log('Updating address for employee', id, data);
+    try {
+        await connectDb();
+        
+        // Find employee and populate address
+        const employee = await User.findById(id).populate('address');
+        if (!employee) {
+            return {
+                success: false,
+                address: null,
+                message: 'Employee not found',
+                error: 'Employee not found',
+            }
+        }
+
+        // Update address document
+        const updatedAddress = await Address.findByIdAndUpdate(
+            employee.address._id,
+            { $set: data },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedAddress) {
+            return {
+                success: false,
+                address: null,
+                message: 'Address not found',
+                error: 'Address not found',
+            }
+        }
+
+        // Ensure the address is properly linked to the employee
+        await User.findByIdAndUpdate(
+            id,
+            { $set: { address: updatedAddress._id } },
+            { new: true }
+        );
+
+        return {
+            success: true,
+            address: parseStringify(updatedAddress),
+            message: 'Address updated successfully',
+            error: null,
+        }
+    } catch (error: unknown) {
+        console.error('Error updating address:', error);
+        return {
+            success: false,
+            address: null,
+            message: 'Error updating address',
+            error: error instanceof Error ? error.message : 'Unknown error',
+        }
     }
 }

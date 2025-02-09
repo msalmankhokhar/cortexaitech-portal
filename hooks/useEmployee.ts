@@ -10,7 +10,7 @@ export default function useEmployee(employeeId: string) {
   useEffect(() => {
     async function fetchEmployee() {
       if (!employeeId || status !== 'authenticated') return;
-      
+
       // Only fetch if we don't already have the employee data
       if (!employee) {
         setLoading(true);
@@ -34,5 +34,8 @@ export default function useEmployee(employeeId: string) {
     fetchEmployee();
   }, [employeeId, session, status, employee]);
 
-  return { employee, loading, status, session };
+  const isAdmin = session?.user?.adminAccess;
+  const isOwnProfile = employee?._id === session?.user._id;
+
+  return { employee, loading, status, session, isAdmin, isOwnProfile };
 }
