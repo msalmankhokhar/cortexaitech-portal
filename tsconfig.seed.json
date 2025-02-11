@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "noEmit": false,
+    "jsx": "preserve"
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    "**/*.tsx",
+    "**/Constants/**/*",
+    "app/**/*",
+    "components/**/*"
+  ],
+  "include": [
+    "scripts/**/*",
+    "lib/db.ts",
+    "models/**/*"
+  ]
+}

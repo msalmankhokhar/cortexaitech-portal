@@ -73,16 +73,17 @@ export default function Avatar({
     return (
         <>
             <div
-                className={`rounded-full overflow-hidden relative ${editable ? 'cursor-pointer hover:opacity-80' : ''}`}
+                className={`flex items-center justify-center rounded-full overflow-hidden relative ${editable ? 'cursor-pointer hover:opacity-80' : ''}`}
                 onClick={handleClick}
+                style={{ width: size, height: size }}
             >
                 <Image
                     priority
                     alt='avatar'
                     src={imageSrc}
-                    width={size}
-                    height={size}
-                    className={isLoading ? 'opacity-50' : ''}
+                    fill
+                    style={{objectFit: 'cover', objectPosition: 'center'}}
+                    className={`${isLoading ? 'opacity-50' : ''}`}
                 />
                 {isLoading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">

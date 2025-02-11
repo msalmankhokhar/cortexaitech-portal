@@ -66,23 +66,51 @@ export async function addEmployee(employeeData: signupFormData, adminEmail: stri
     }
 }
 
-export async function getEmployees(): Promise<{ success: boolean, employees: never[], message: string }> {
-    console.log('Getting users');
+export async function getEmployees(page = 1, limit = 10): Promise<{ 
+    success: boolean, 
+    employees: never[], 
+    message: string,
+    totalPages: number,
+    currentPage: number
+}> {
+    console.log('Getting users with page:', page, 'limit:', limit);
     try {
         await connectDb();
-        const users = await User.find().populate('department').populate('role').populate('office').lean();
+        const skip = (page - 1) * limit;
+        console.log('Skip:', skip, 'Limit:', limit);
+        
+        const totalEmployees = await User.countDocuments();
+        console.log('Total employees in DB:', totalEmployees);
+        
+        const totalPages = Math.ceil(totalEmployees / limit);
+        console.log('Total pages calculated:', totalPages);
+        
+        // Execute query and force limit with toArray()
+        const users = await User.find()
+            .populate('department')
+            .populate('role')
+            .populate('office')
+            .skip(skip)
+            .limit(limit)
+            .lean()
+            .exec();  // Add explicit execution
+            
+        console.log('Query returned users count:', users.length);
         const response = parseStringify(users);
-        console.log(response);
         return {
             success: true,
             employees: response,
             message: response.length > 0 ? 'Employees fetched successfully' : 'No employees found',
+            totalPages,
+            currentPage: page
         }
     } catch (error) {
         const response = {
             success: false,
             employees: [],
             message: 'Error fetching employees',
+            totalPages: 0,
+            currentPage: page
         }
         console.log(response);
         console.log(error);

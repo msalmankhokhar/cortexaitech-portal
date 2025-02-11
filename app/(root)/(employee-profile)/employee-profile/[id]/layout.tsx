@@ -7,6 +7,8 @@ import { ChevronDown, ChevronLeft, Globe, Mail, Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
 import EmployeeProfileLoading from "./loading";
 import { useEmployeeContext } from "@/Context/EmployeeContext";
+import EmployeeStatus from "@/components/root/EmployeeStatus";
+import { employeeStatusType } from "@/Constants/enum";
 
 export default function EmployeeProfileLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
@@ -44,7 +46,9 @@ export default function EmployeeProfileLayout({ children }: { children: React.Re
                             <div className="flex items-center flex-col mt-3">
                                 <h1 className="text-lg font-semibold">{`${employee?.firstName} ${employee?.lastName}`}</h1>
                                 <p className="text-sm text-secondary-700 dark:text-secondary-300">{employee!.role.title}</p>
-                                <div className="bg-green-500/10 font-bold mt-3 rounded py-1.5 px-3 text-xs text-green-500">{employee!.status}</div>
+                                <div className="mt-3">
+                                    <EmployeeStatus value={employee!.status as employeeStatusType} />
+                                </div>
                             </div>
                         </div>
 

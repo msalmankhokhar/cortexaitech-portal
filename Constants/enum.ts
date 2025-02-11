@@ -60,3 +60,4 @@ export const offices = [
 
 export const genders = [ 'Male', 'Female' ];
 export const statuses = [ 'Active', 'On Leave' ];
+export type employeeStatusType = 'Active' | 'On Leave';

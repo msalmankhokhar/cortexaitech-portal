@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-import { maxWorkHoursPerDay } from '@/Constants';
+// import { maxWorkHoursPerDay } from '@/Constants/data';
+
+const maxWorkHoursPerDay = 8;
 
 interface attendanceDocument extends mongoose.Document {
     user: mongoose.Schema.Types.ObjectId;

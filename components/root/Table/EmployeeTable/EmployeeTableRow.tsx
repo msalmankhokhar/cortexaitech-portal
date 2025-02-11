@@ -2,6 +2,8 @@ import Avatar from '@/components/Avatar'
 import { getAvatarUrl } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react'
+import EmployeeStatus from '../../EmployeeStatus';
+import { employeeStatusType } from '@/Constants/enum';
 
 interface employeeType {
     _id: string;
@@ -34,7 +36,7 @@ const defaultEmployee: employeeType = {
 export default function EmployeeTableRow({employee= defaultEmployee}: EmployeeTableRowProps) {
 
     const {firstName, lastName, email, jobTitle, status, department, office} = employee
-    console.log(employee);
+    // console.log(employee);
 
     return (
         <tr className="px-5 [&>td:first-child]:pl-5 [&>td:last-child]:pr-5 text-sm">
@@ -66,7 +68,7 @@ export default function EmployeeTableRow({employee= defaultEmployee}: EmployeeTa
                 </div>
             </td>
             <td className="py-3 text-secondary-800 text-left text-sm font-semibold align-middle">
-                <span className="bg-green-500/10 rounded-md text-green-500 text-xs font-bold px-4 py-1.5">{status}</span>
+                <EmployeeStatus value={status as employeeStatusType} />
             </td>
         </tr>
     )

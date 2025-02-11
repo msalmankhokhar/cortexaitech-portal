@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./*"
+            ]
+        },
+        "types": [
+            "node"
+        ]
+    },
+    "ts-node": {
+        "transpileOnly": true,
+        "require": [
+            "tsconfig-paths/register"
+        ]
+    },
+    "include": [
+        "scripts/**/*",
+        "models/**/*",
+        "lib/**/*",
+        "Constants/**/*",
+        "types/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

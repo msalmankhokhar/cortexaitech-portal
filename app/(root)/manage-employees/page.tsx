@@ -1,7 +1,6 @@
 "use client";
 import Button from "@/components/Button";
 import EmployeeTable from "@/components/root/Table/EmployeeTable";
-import TablePager from "@/components/root/Table/TablePager";
 import AddEmployeeSideModal from "@/components/SideModal/AddEmployeeSideModal";
 import { useSideBarModal } from "@/Context/SideModalContext";
 import { ChevronLeft, FileDown, Plus } from "lucide-react";
@@ -40,7 +39,6 @@ export default function ManageEmployees() {
 
                 <section className="flex flex-col p-4 rounded-lg bg-white dark:bg-slate-800">
                     <EmployeeTable />
-                    <TablePager />
                 </section>
 
                 <AddEmployeeSideModal />
