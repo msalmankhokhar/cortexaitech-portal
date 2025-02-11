@@ -2,19 +2,32 @@ import React from 'react'
 import Logo from '@/components/Logo'
 import { CircleHelp, LayoutGrid, Settings } from 'lucide-react'
 import { sideBarItemsData } from '@/Constants'
-import SideBarDropDown from './SideBarDropDown'
+import SideBarDropDown, { sideBarLinkDataProp } from './SideBarDropDown'
 import SideBarButton from './SideBarButton'
 import { useSideBar } from '@/Context/SideBarContext'
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 // Max Sidebar width: 260px
+
+const checkSideBarItemSelected = (items: sideBarLinkDataProp[], path: string): string | null =>{
+    for (const item of items) {
+        if (item.url) {
+            if (path.startsWith(item.url)) {
+                return item.url;
+            }
+        }
+    }
+    return null;
+}
 
 export default function SideBar() {
 
     const { sideBarOpen } = useSideBar();
     const { data: session } = useSession();
     const sideBarItems = session?.user?.adminAccess ? sideBarItemsData.admin : sideBarItemsData.employee;
+    const path = usePathname();
 
     return (
         <div className="overflow-hidden">
@@ -55,12 +68,21 @@ export default function SideBar() {
                     </button>
                     <div className='flex flex-col pt-5 pb-8 gap-2'>
                         {
-                            sideBarItems.map((sideBarItem, index) => (
-                                <SideBarDropDown
-                                    key={index}
-                                    {...sideBarItem}
-                                />
-                            ))
+                            sideBarItems.map((sideBarItem, index) => {
+                                let selectedUrl = null;
+                                if (sideBarItem.items) {
+                                    selectedUrl = checkSideBarItemSelected(sideBarItem.items, path);
+                                    console.log(selectedUrl);
+                                }
+                                return (
+                                    <SideBarDropDown
+                                        key={index}
+                                        {...sideBarItem}
+                                        selectedUrl={selectedUrl}
+                                        openInitial={selectedUrl !== null}
+                                    />
+                                )
+                            })
                         }
                     </div>
                 </div>

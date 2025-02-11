@@ -1,9 +1,9 @@
 import { ChevronDown, ChevronUp, UsersRound } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
-interface sideBarLinkDataProp {
+export interface sideBarLinkDataProp {
     title: string;
     url?: string;
 }
@@ -12,6 +12,8 @@ export interface sideBarDropDownProps {
     title?: string;
     items?: sideBarLinkDataProp[];
     icon?: React.ReactNode;
+    openInitial?: boolean;
+    selectedUrl?: string | null;
 }
 
 const defaultProps: sideBarDropDownProps = {
@@ -33,16 +35,20 @@ const defaultProps: sideBarDropDownProps = {
     ]
 }
 
-export default function SideBarDropDown({ title = defaultProps.title, items = defaultProps.items, icon }: sideBarDropDownProps) {
+export default function SideBarDropDown({ title = defaultProps.title, items = defaultProps.items, icon, openInitial = false, selectedUrl=null }: sideBarDropDownProps) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(openInitial);
+
+    useEffect(() => {
+        setOpen(openInitial);
+    }, [openInitial]);
 
     const handleClick = () => {
         setOpen(!open);
     }
 
     return (
-        <div>
+        <div className='flex flex-col gap-2'>
             <button onClick={handleClick} className='rounded-md px-2 py-3.5 hover:bg-secondary-100 dark:hover:bg-slate-700 w-full text-sm text-secondary-900 font-medium relative flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
                     {icon}
@@ -86,31 +92,34 @@ export default function SideBarDropDown({ title = defaultProps.title, items = de
                     className="flex-col ml-3 pl-3 border-l dark:border-secondary-700 overflow-hidden"
                 >
                     {
-                        items!.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                variants={{
-                                    expanded: {
-                                        opacity: 1,
-                                        y: 0,
-                                        transition: { delay: index * 0.1 }
-                                    },
-                                    collapsed: {
-                                        opacity: 0,
-                                        y: -10
-                                    }
-                                }}
-                            >
-                                <Link
-                                    className='rounded-md px-2 py-3 hover:bg-secondary-100 dark:hover:bg-slate-700 w-full text-sm text-secondary-900 font-medium relative flex items-center justify-between'
-                                    href={item.url ? item.url : '#'}
+                        items!.map((item, index) => {
+                            
+                            return (
+                                <motion.div
+                                    key={index}
+                                    variants={{
+                                        expanded: {
+                                            opacity: 1,
+                                            y: 0,
+                                            transition: { delay: index * 0.1 }
+                                        },
+                                        collapsed: {
+                                            opacity: 0,
+                                            y: -10
+                                        }
+                                    }}
                                 >
-                                    <div className='flex items-center gap-3'>
-                                        <span className='dark:text-white line-clamp-1 text-nowrap font-bold'>{item.title}</span>
-                                    </div>
-                                </Link>
-                            </motion.div>
-                        )
+                                    <Link
+                                        className={`rounded-md px-2 py-3 hover:bg-secondary-100 dark:hover:bg-slate-700 w-full text-sm text-secondary-900 font-medium relative flex items-center justify-between ${ (selectedUrl && selectedUrl) === item.url ? 'sideBarItemSelected' : ''}`}
+                                        href={item.url ? item.url : '#'}
+                                    >
+                                        <div className='flex items-center gap-3'>
+                                            <span className='dark:text-white line-clamp-1 text-nowrap font-bold'>{item.title}</span>
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            )
+                        }
                         )
                     }
                 </motion.div>

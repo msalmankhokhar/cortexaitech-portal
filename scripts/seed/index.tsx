@@ -1,8 +1,8 @@
+// script for seeding the database with fake data
 import { faker } from '@faker-js/faker';
 import { Address, Department, Office, Role, User } from '@/models';
 import connectDb from "@/lib/db";
 import { departmentsArray as departments, rolesArray as roles } from '../../Constants/enum';
-// Import only the non-JSX constants
 import { genders, statuses, offices } from '../../Constants/enum';
 import countryNames from '../../Constants/countries';
 import timezones from '../../Constants/timezones';
@@ -10,8 +10,6 @@ import { departmentDocument } from '@/models/schemas/DepartmentSchema';
 import { officeDocument } from '@/models/schemas/OfficeSchema';
 import { roleDocument } from '@/models/schemas/RoleSchema';
 import { config } from './config';
-
-// Remove the departments, roles, offices arrays from here since they're now imported
 
 async function seedBaseData() {
     // Create Departments

@@ -58,4 +58,14 @@
         font-size: clamp(1.7rem, 5vw, 2rem);
         text-overflow: ellipsis;
     }
+
+    /* Selected Items */
+
+    .sideBarItemSelected { 
+        @apply bg-secondary-100 dark:bg-slate-700
+    }
+
+    .filterOptionSelected {
+        @apply bg-secondary-100 dark:bg-slate-800
+    }
 }
