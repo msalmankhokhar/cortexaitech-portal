@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 import { maxWorkHoursPerDay } from '@/Constants';
 
-const attendanceSchema = new mongoose.Schema({
+interface attendanceDocument extends mongoose.Document {
+    user: mongoose.Schema.Types.ObjectId;
+    dateCreated: Date;
+    checkIn: Date;
+    checkOut?: Date;
+}
+
+const attendanceSchema = new mongoose.Schema<attendanceDocument>({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
     dateCreated: { type: Date, required: true, unique: false, default: Date.now },
     checkIn: { type: Date, required: true, unique: false, default: Date.now },

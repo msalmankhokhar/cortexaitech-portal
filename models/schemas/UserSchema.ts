@@ -1,7 +1,6 @@
-import { genders, statuses } from '@/Constants/enum';
-import timezones from '@/Constants/timezones';
 import mongoose from 'mongoose';
-import { defaultTimezone } from '@/Constants/timezones';
+import { genders, statuses } from '../../scripts/seed-constants/enums';
+import { timezones } from '../../scripts/seed-constants';
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true, unique: false },
@@ -21,7 +20,7 @@ const userSchema = new mongoose.Schema({
   department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true, unique: false },
   role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true, unique: false },
   status: { type: String, required: true, unique: false, enum: statuses, default: 'Active' },
-  timezone: { type: String, required: true, unique: false, enum: timezones, default: defaultTimezone },
+  timezone: { type: String, required: true, unique: false, enum: timezones },
 
   // Personal Information
   gender: { type: String, required: true, unique: false, enum: genders },

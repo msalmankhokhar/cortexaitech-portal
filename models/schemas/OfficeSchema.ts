@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
-const officeSchema = new mongoose.Schema({
+export interface officeDocument extends mongoose.Document {
+  title: string;
+}
+
+const officeSchema = new mongoose.Schema<officeDocument>({
   title: { type: String, required: true, unique: true },
 });
 
